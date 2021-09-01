@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Text, View} from 'react-native';
 import {style} from './stylesheet';
 import CheckBox from 'react-native-check-box';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export default class TodoItem extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class TodoItem extends Component {
     const handler = e => {
       this.props.action(this.props.data.id);
     };
-    console.log(this.props.data, 'kes');
+
     return (
       <View style={style.container}>
         <CheckBox
@@ -38,8 +39,14 @@ export default class TodoItem extends Component {
             {this.props.data.message}
           </Text>
         </View>
+        <Icon.Button
+          name="delete"
+          backgroundColor="rgba(0,0,0,0.0)"
+          color="orange"
+          onPress={handler}
+        />
 
-        <Button title="delete" onPress={handler} />
+        {/* <Button title="delete" onPress={handler} /> */}
       </View>
     );
   }

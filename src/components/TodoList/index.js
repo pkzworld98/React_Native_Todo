@@ -4,31 +4,25 @@ import TodoItem from '../TodoItem';
 import {style} from './stylesheet';
 
 export default class TodoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
-  render() {
+  TodoList = () => {
     switch (this.props.show) {
       case 'All':
-        this.setState({
-          data: [...this.props.todos],
-        });
-        break;
-      case 'Completed':
-        this.setState({
-          data: [...this.props.todos.filter(task => task.completed === true)],
-        });
-        break;
-      case 'Uncompleted':
-        this.setState({
-          data: [...this.props.todos.filter(task => task.completed !== true)],
-        });
-    }
-    console.log(this.props.todos);
+        console.log('all hai');
+        return this.props.todos;
 
+      case 'Completed':
+        console.log('completed hai');
+
+        return [...this.props.todos.filter(task => task.completed === true)];
+
+      case 'Uncompleted':
+        console.log('active  hai');
+
+        return [...this.props.todos.filter(task => task.completed === false)];
+    }
+  };
+  render() {
+    console.log(this.props, 'k', this.TodoList());
     const renderItem = ({item}) => {
       return (
         <TodoItem
@@ -41,7 +35,7 @@ export default class TodoList extends Component {
     return (
       <View style={style.container}>
         <FlatList
-          data={this.state.data}
+          data={this.TodoList()}
           renderItem={renderItem}
           keyExtractor={this.props.todos.id}
         />

@@ -36,5 +36,6 @@ export const style = StyleSheet.create({
     textDecorationColor: 'black',
     letterSpacing: 1,
     fontSize: 15,
+    fontStyle: 'italic',
   },
 });

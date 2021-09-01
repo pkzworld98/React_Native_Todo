@@ -4,9 +4,9 @@ export const style = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 50,
-    height: '10%',
-    width: 'auto',
+    marginTop: 30,
+    height: 'auto',
+    width: '88%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.2)',

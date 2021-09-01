@@ -10,7 +10,9 @@ const style = StyleSheet.create({
   header: {
     fontWeight: '700',
     fontSize: 60,
-    color: '#ffad33',
+    color: 'white',
+    marginTop: 80,
+    letterSpacing: 3,
   },
   input: {
     display: 'flex',

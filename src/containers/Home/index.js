@@ -56,20 +56,30 @@ export default class Home extends Component {
       show: e,
     });
   };
+  clear = () => {
+    this.setState({
+      message: '',
+    });
+  };
   render() {
-    console.log(this.state.todos, 'k');
+    console.log(this.state, 'k');
     return (
       <View style={style.container}>
         <Text style={style.header}>Todos</Text>
 
-        <TodoInput onChange={this.textChange} press={this.handler} />
-        {/* <TodoList
+        <TodoInput
+          onChange={this.textChange}
+          message={this.state.message}
+          press={this.handler}
+          clear={this.clear}
+        />
+        <TodoList
           show={this.state.show}
           todos={this.state.todos}
           action={this.deleteTask}
           completed={this.completeOrnot}
-        /> */}
-        {/* <TaskButton action={this.changeShowType} /> */}
+        />
+        <TaskButton action={this.changeShowType} />
       </View>
     );
   }
