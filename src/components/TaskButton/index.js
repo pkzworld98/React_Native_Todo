@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
-import {View, Button} from 'react-native';
+import {View, Button, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Entypo';
+import {connect} from 'react-redux';
+import {changeView} from '../../actions/todos';
 
 import {style} from './stylesheet';
 
-export default class TaskButton extends Component {
+const mapDispatchToProps = dispatch => {
+  return {
+    viewType: view => dispatch(changeView(view)),
+  };
+};
+class TaskButton extends Component {
   render() {
-    const showAll = () => {
-      this.props.action('All');
-    };
-    const showCompleted = () => {
-      this.props.action('Completed');
-    };
-    const showUncompleted = () => {
-      this.props.action('Uncompleted');
-    };
+    // const showAll = () => {
+    //   this.props.action('All');
+    // };
+    // const showCompleted = () => {
+    //   this.props.action('Completed');
+    // };
+    // const showUncompleted = () => {
+    //   this.props.action('Uncompleted');
+    // };
 
     return (
       <View style={style.container}>
@@ -23,22 +30,31 @@ export default class TaskButton extends Component {
           name="grid"
           backgroundColor="rgba(0,0,0,0.0)"
           color="orange"
-          onPress={showAll}>
-          All
+          size={25}
+          onPress={() => {
+            this.props.viewType('All');
+          }}>
+          <Text>All</Text>
         </Icon2.Button>
         <Icon2.Button
           name="flash"
+          size={25}
           backgroundColor="rgba(0,0,0,0.0)"
           color="orange"
-          onPress={showUncompleted}>
-          Active
+          onPress={() => {
+            this.props.viewType('Active');
+          }}>
+          <Text> Active</Text>
         </Icon2.Button>
         <Icon.Button
           name="checksquare"
+          size={22}
           backgroundColor="rgba(0,0,0,0.0)"
           color="orange"
-          onPress={showCompleted}>
-          Completed
+          onPress={() => {
+            this.props.viewType('Completed');
+          }}>
+          <Text> Completed</Text>
         </Icon.Button>
         {/* <Button title="All" onPress={showAll} />
         <Button title="cOMPLETED" onPress={showCompleted} />
@@ -47,3 +63,5 @@ export default class TaskButton extends Component {
     );
   }
 }
+
+export default connect(null, mapDispatchToProps)(TaskButton);

@@ -20,23 +20,26 @@ import {
   View,
 } from 'react-native';
 
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import {Provider} from 'react-redux';
 import Home from './src/containers/Home';
+import store from './src/store';
 
 const App = () => {
   return (
-    <ImageBackground
-      source={require('./src/wall.jpeg')}
-      // eslint-disable-next-line react-native/no-inline-styles
-      style={{
-        flex: 1,
-        width: null,
-        height: null,
-      }}>
-      <SafeAreaView style={{}}>
-        <Home />
-      </SafeAreaView>
-    </ImageBackground>
+    <Provider store={store}>
+      <ImageBackground
+        source={require('./src/wall.jpeg')}
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{
+          flex: 1,
+          width: null,
+          height: null,
+        }}>
+        <SafeAreaView style={{}}>
+          <Home />
+        </SafeAreaView>
+      </ImageBackground>
+    </Provider>
   );
 };
 

@@ -3,11 +3,17 @@ import {FlatList, ScrollView, Text, View} from 'react-native';
 import TodoItem from '../TodoItem';
 import {style} from './stylesheet';
 
-export default class TodoList extends Component {
+import {connect} from 'react-redux';
+
+const mapStateToProps = state => ({
+  todos: state.todos.tasks,
+  show: state.todos.show,
+});
+
+class TodoList extends Component {
   TodoList = () => {
     switch (this.props.show) {
       case 'All':
-        console.log('all hai');
         return this.props.todos;
 
       case 'Completed':
@@ -15,20 +21,20 @@ export default class TodoList extends Component {
 
         return [...this.props.todos.filter(task => task.completed === true)];
 
-      case 'Uncompleted':
+      case 'Active':
         console.log('active  hai');
 
         return [...this.props.todos.filter(task => task.completed === false)];
     }
   };
   render() {
-    console.log(this.props, 'k', this.TodoList());
+    console.log(this.props.todos, 'kes', this.TodoList());
     const renderItem = ({item}) => {
       return (
         <TodoItem
           data={item}
-          action={this.props.action}
-          completed={this.props.completed}
+          // action={this.props.action}
+          // completed={this.props.completed}
         />
       );
     };
@@ -43,3 +49,5 @@ export default class TodoList extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(TodoList);

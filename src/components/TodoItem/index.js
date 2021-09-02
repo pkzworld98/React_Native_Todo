@@ -3,47 +3,44 @@ import {Button, Text, View} from 'react-native';
 import {style} from './stylesheet';
 import CheckBox from 'react-native-check-box';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {changeStatus, deleteTask} from '../../actions/todos';
+import {connect} from 'react-redux';
 
-export default class TodoItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: this.props.data.completed,
-    };
-  }
+const mapDispatchToProps = dispatch => ({
+  delete: id => dispatch(deleteTask(id)),
+  completedstatus: id => dispatch(changeStatus(id)),
+});
+
+class TodoItem extends Component {
   checkBoxHandler = e => {
-    this.setState({
-      selected: !this.state.selected,
-    });
-    this.props.completed(this.props.data);
+    this.props.completedstatus(this.props.data.id);
   };
   render() {
-    const handler = e => {
-      this.props.action(this.props.data.id);
-    };
-
+    // console.log(this.props.data.msg, ' yei aya', this.state.selected);
     return (
       <View style={style.container}>
         <CheckBox
           checkBoxColor="orange"
-          onClick={() => {
-            this.checkBoxHandler();
-          }}
-          isChecked={this.state.selected}
+          onClick={this.checkBoxHandler}
+          isChecked={this.props.data.completed}
         />
         <View style={style.message}>
           <Text
             style={
-              !this.state.selected ? style.completedTask : style.uncompletedTask
+              !this.props.data.completed
+                ? style.completedTask
+                : style.uncompletedTask
             }>
-            {this.props.data.message}
+            {this.props.data.msg}
           </Text>
         </View>
         <Icon.Button
           name="delete"
           backgroundColor="rgba(0,0,0,0.0)"
-          color="orange"
-          onPress={handler}
+          color="white"
+          onPress={() => {
+            this.props.delete(this.props.data.id);
+          }}
         />
 
         {/* <Button title="delete" onPress={handler} /> */}
@@ -51,3 +48,5 @@ export default class TodoItem extends Component {
     );
   }
 }
+
+export default connect(null, mapDispatchToProps)(TodoItem);

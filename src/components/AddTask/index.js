@@ -3,49 +3,53 @@ import {Button, Text, TextInput, View} from 'react-native';
 import {style} from './stylesheet';
 import Icon2 from 'react-native-vector-icons/Entypo';
 
-import TodoList from '../TodoList';
+import {addTask} from '../../actions/todos';
+import {connect} from 'react-redux';
 
-export default class AddTask extends Component {
+const mapDispatchToProps = dispatch => ({
+  add: e => dispatch(addTask(e)),
+});
+
+class AddTask extends Component {
   constructor() {
     super();
     this.state = {
       data: 'What need to be done?',
+      message: '',
     };
   }
-  addTask = () => {
-    this.setState({
-      data: 'Add more task',
-    });
 
-    this.props.press();
-    this.props.clear();
+  handler = () => {
+    this.setState({
+      data: 'Add More Task',
+      message: '',
+    });
+    this.props.add(this.state.message);
   };
 
   render() {
+    console.log('pkwala msg', this.state.message);
     return (
       <View style={style.container}>
         <TextInput
-          value={this.props.message}
+          value={this.state.message}
           style={style.input}
           placeholder={this.state.data}
           placeholderTextColor="silver"
-          onChangeText={this.props.onChange}
+          onChangeText={e => {
+            this.setState({message: e});
+          }}
         />
         {/* <PlusSquareTwoTone /> */}
         <Icon2.Button
           name="circle-with-plus"
           backgroundColor="rgba(0,0,0,0.0)"
-          onPress={this.addTask}
+          onPress={this.handler}
           color="white"
         />
-
-        {/* <Button
-          color="orange"
-          style={style.button}
-          title="+"
-          onPress={}
-        /> */}
       </View>
     );
   }
 }
+
+export default connect(null, mapDispatchToProps)(AddTask);
